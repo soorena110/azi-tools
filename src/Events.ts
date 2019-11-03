@@ -2,10 +2,10 @@ import {eventManagerHocCreator} from "./HOCSubscription";
 
 export class EventManager<THandler, TEvent> {
     protected _eventHandlers: { [key: string]: THandler[]; } = {};
-    private readonly _name: string;
+    public readonly name: string;
 
     constructor(name = '') {
-        this._name = name;
+        this.name = name;
     }
 
 
@@ -18,7 +18,7 @@ export class EventManager<THandler, TEvent> {
         const ix = this._eventHandlers[theEvent as any].indexOf(theHandler);
         if (ix != -1)
             this._eventHandlers[theEvent as any].splice(ix, 1);
-        else console.warn(`[${this._name}] You are trying to unsubscribe from '${theEvent}',
+        else console.warn(`[${this.name}] You are trying to unsubscribe from '${theEvent}',
          but the handler is not subscribed before`)
     }
 
@@ -35,7 +35,7 @@ export class EventManager<THandler, TEvent> {
         }
     }
 
-    connectToModeChange = eventManagerHocCreator<THandler, TEvent>(this);
+    connectToEvent = eventManagerHocCreator<THandler, TEvent>(this);
 
     private static dispatchEvent(theHandler: any, ...args: any) {
         theHandler(...args);
