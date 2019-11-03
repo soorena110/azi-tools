@@ -1,6 +1,6 @@
 import {eventManagerHocCreator} from "./HOCSubscription";
 
-export class EventManager<THandler, TEvent> {
+export class EventManager<THandler = Function, TEvent = string> {
     protected _eventHandlers: { [key: string]: THandler[]; } = {};
     public readonly name: string;
 
