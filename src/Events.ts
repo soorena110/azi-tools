@@ -1,4 +1,6 @@
-export class EventManager<THandler = Function, TEvent = string> {
+import {eventManagerHocCreator} from "./HOCSubscription";
+
+export class EventManager<THandler, TEvent> {
     protected _eventHandlers: { [key: string]: THandler[]; } = {};
     private readonly _name: string;
 
@@ -32,6 +34,8 @@ export class EventManager<THandler = Function, TEvent = string> {
             }
         }
     }
+
+    connectToModeChange = eventManagerHocCreator<THandler, TEvent>(this);
 
     private static dispatchEvent(theHandler: any, ...args: any) {
         theHandler(...args);
