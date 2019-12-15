@@ -10,7 +10,7 @@ module.exports = (env) => {
         module: {
             rules: [
                 {
-                    test: /\.(ts)$/,
+                    test: /\.(tsx?)$/,
                     use: [{
                         loader: 'awesome-typescript-loader',
                         options: {silent: true}
@@ -20,7 +20,7 @@ module.exports = (env) => {
             ]
         },
         resolve: {
-            extensions: ['*', '.ts', '.js']
+            extensions: ['*', '.ts', '.js', '.tsx', '.jsx']
         },
         output: {
             path: path.join(__dirname, './dist'),

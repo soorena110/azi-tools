@@ -33,7 +33,7 @@ export class TraceLogger {
 
 
     private _loadPreviousSettingFromLocalStorage() {
-        if (!window.localStorage)
+        if (!window || !window.localStorage)
             return {};
 
         try {
@@ -46,6 +46,8 @@ export class TraceLogger {
     }
 
     private _loadPreviousSetting = () => {
+        if (!window) return;
+
         const previousLogSetting = this._loadPreviousSettingFromLocalStorage();
         this._keys.forEach((verb, ix) => {
             let value = previousLogSetting[verb];
@@ -56,6 +58,8 @@ export class TraceLogger {
     };
 
     private _createTraceObjcet() {
+        if (!window) return;
+
         const win = window as any;
         if (!win.$trace) win.$trace = {};
 
@@ -76,6 +80,8 @@ export class TraceLogger {
                 return `$trace.${this._name}.${verb} is set to '${enablity}'`;
             },
             setAllLogsEnablity: (enablity: boolean) => {
+                if(!window)return;
+
                 this._keys.forEach(verb => (window as any).$trace[this._name].setLogEnablity(verb, enablity));
             }
         };
